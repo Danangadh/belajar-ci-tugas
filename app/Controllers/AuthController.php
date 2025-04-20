@@ -5,13 +5,14 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class AuthControllers extends BaseController
+class AuthController extends BaseController
 {
     function __construct()
-{
-    helper('form');
-}
-public function login()
+    {
+        helper('form');
+    } 
+
+    public function login()
 {
     if ($this->request->getPost()) {
         $username = $this->request->getVar('username');
@@ -40,10 +41,10 @@ public function login()
         return view('v_login');
     }
 }
+
 public function logout()
 {
     session()->destroy();
     return redirect()->to('login');
 }
 }
-

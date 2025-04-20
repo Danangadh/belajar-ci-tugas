@@ -46,9 +46,6 @@ if(uri_string()!=""){
 
 <body>
 
-<?= $this->include('components/header') ?>
-
-  <?= $this->include('components/sidebar') ?>
 
   <main>
 
