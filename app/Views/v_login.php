@@ -47,25 +47,25 @@ $password = [
         }
         ?>
     
-                  <?= form_open('login', 'class = "row g-3 needs-validation"') ?>
+            <?= form_open('login', 'class = "row g-3 needs-validation"') ?>
 
-<div class="col-12">
-    <label for="yourUsername" class="form-label">Username</label>
-    <div class="input-group has-validation">
-        <span class="input-group-text" id="inputGroupPrepend">@</span>
-        <?= form_input($username) ?>
-        <div class="invalid-feedback">Please enter your username.</div>
-    </div>
-</div>
+            <div class="col-12">
+            <label for="yourUsername" class="form-label">Username</label>
+            <div class="input-group has-validation">
+             <span class="input-group-text" id="inputGroupPrepend">@</span>
+            <?= form_input($username) ?>
+            <div class="invalid-feedback">Please enter your username.</div>
+          </div>
+        </div>
 
-<div class="col-12">
-    <label for="yourPassword" class="form-label">Password</label>
+        <div class="col-12">
+         <label for="yourPassword" class="form-label">Password</label>
 		    <?= form_password($password) ?>
-    <div class="invalid-feedback">Please enter your password!</div>
-</div>
-<div class="col-12">
-    <?= form_submit('submit', 'Login', ['class' => 'btn btn-primary w-100']) ?>
-</div>
+         <div class="invalid-feedback">Please enter your password!</div>
+        </div>
+        <div class="col-12">
+         <?= form_submit('submit', 'Login', ['class' => 'btn btn-primary w-100']) ?>
+        </div>
 
 <?= form_close() ?>
 
