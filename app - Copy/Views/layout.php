@@ -1,5 +1,5 @@
 <?php
-$hlm = "Redirect";
+$hlm = "Home";
 if(uri_string()!=""){
   $hlm = ucwords(uri_string());
 }
@@ -46,13 +46,46 @@ if(uri_string()!=""){
 
 <body>
 
+<?= $this->include('components/header') ?>
 
-  <main>
+  <?= $this->include('components/sidebar') ?>
 
-   
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Data Tables</h1>
+      <nav>
+      <ol class="breadcrumb">
+  <li class="breadcrumb-item">Home</li>
+  <?php
+	if($hlm!="Home"){
+	  ?>
+	  <li class="breadcrumb-item"><?php echo $hlm?></li> 
+	  <?php
+	}
+  ?> 
+</ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+          <div class="card-body">
+         <h5 class="card-title"><?php echo $hlm?></h5>
+           <?= $this->renderSection('content') ?>
+            </div>
               <?= $this->renderSection('content') ?>
 
-           
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
   </main><!-- End #main -->
 
   <?= $this->include('components/footer') ?>
