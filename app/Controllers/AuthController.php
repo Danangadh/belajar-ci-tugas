@@ -16,34 +16,33 @@ class AuthController extends BaseController
         $this->user = new UserModel();
     }
 
-    public function login()
-    {
-        if ($this->request->getPost()) {
-            $username = $this->request->getVar('username');
-            $password = $this->request->getVar('password');
-            
-            $dataUser = $this->user->where(['username' => $username])->first();
+   public function login()
+{
+    if ($this->request->getPost()) {
+        $username = $this->request->getVar('username');
+        $password = $this->request->getVar('password');
 
-            if ($dataUser) {
-                if (password_verify($password, $dataUser['password'])) {
-                    session()->set([
-                        'username'    => $dataUser['username'],
-                        'role'        => $dataUser['role'],
-                        'isLoggedIn'  => TRUE
-                    ]);
-                    return redirect()->to(base_url('/'));
-                } else {
-                    session()->setFlashdata('failed', 'Password Salah');
-                    return redirect()->back();
-                }
-            } else {
-                session()->setFlashdata('failed', 'Username Tidak Ditemukan');
-                return redirect()->back();
-            }
-        } else {
-            return view('v_login');
+        $dataUser = $this->user->where(['username' => $username])->first();
+
+        if (!$dataUser) {
+            die("Username tidak ditemukan di database.");
         }
+
+        echo "Input Password: {$password}<br>";
+        echo "Hash Password DB: {$dataUser['password']}<br>";
+
+        if (password_verify($password, $dataUser['password'])) {
+            echo "✅ Cocok! Password benar.";
+        } else {
+            echo "❌ Password salah.";
+        }
+
+        exit;
+    } else {
+        return view('v_login');
     }
+}
+
 
     public function logout()
     {
