@@ -5,11 +5,16 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
+use App\Models\userModel;
+
 class AuthController extends BaseController
 {
+    protected $user;
+
     function __construct()
     {
         helper('form');
+        $this->user= new UserModel();
     } 
 
     public function login()
@@ -17,8 +22,11 @@ class AuthController extends BaseController
     if ($this->request->getPost()) {
         $username = $this->request->getVar('username');
         $password = $this->request->getVar('password');
+        
+        $dataUser = $this->user->where(['username' => $username])->first();
 
-        $dataUser = ['username' => 'danang', 'password' => '202cb962ac59075b964b07152d234b70', 'role' => 'admin']; // passw 123
+        if ($dataUser) {
+	        if (password_verify($password, $dataUser['password'])) {
 
         if ($username == $dataUser['username']) {
             if (md5($password) == $dataUser['password']) {
@@ -39,12 +47,15 @@ class AuthController extends BaseController
         }
     } else {
         return view('v_login');
+         } // Tambahkan ini untuk menutup fungsi login()
     }
-}
 
-public function logout()
-{
-    session()->destroy();
-    return redirect()->to('login');
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('login');
+    }
+
+}
 }
 }
