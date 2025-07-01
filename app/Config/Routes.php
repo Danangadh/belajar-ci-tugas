@@ -9,6 +9,9 @@ $routes->get('/', 'Home::index');
 
 $routes->get('login', 'AuthController::login');
 $routes->post('/login', 'Auth::login', ['filter' => 'redirect']);
+$routes->match(['get', 'post'], 'login', 'AuthController::login');
+
+
 
 $routes->get('logout', 'AuthController::logout');
 

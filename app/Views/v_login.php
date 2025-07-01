@@ -4,7 +4,7 @@
 $username = [
     'name' => 'username',
     'id' => 'username',
-    'class' => 'form-control'
+    'class' => 'form-control',
 ];
 
 $password = [
