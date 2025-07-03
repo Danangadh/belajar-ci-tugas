@@ -23,6 +23,13 @@
       <span>Produk</span>
     </a>
   </li><!-- End Dashboard Nav -->
+  <li class="nav-item">
+  <a class="nav-link collapsed" href="<?= base_url('/diskon') ?>">
+    <i class="bi bi-cash-coin"></i>
+    <span>Diskon</span>
+  </a>
+</li>
+  
 
   <li class="nav-item">
   <a class="nav-link <?php echo (uri_string() == 'contact') ? "" : "collapsed" ?>" href="contact">

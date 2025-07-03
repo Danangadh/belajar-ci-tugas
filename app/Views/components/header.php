@@ -9,23 +9,32 @@
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
 
-<div class="search-bar">
-  <form class="search-form d-flex align-items-center" method="POST" action="#">
+<div class="search-bar d-flex align-items-center justify-content-between w-10 px-3">
+
+  <!-- Search Form -->
+  <form class="search-form d-flex align-items-center me-3" method="POST" action="#">
     <input type="text" name="query" placeholder="Search" title="Enter search keyword">
     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
   </form>
+
+  <!-- Diskon Info -->
+  <?php if (session()->get('diskon')): ?>
+    <div class="alert alert-success mb-0 py-1 px-3 rounded-3 d-inline-block" style="font-size: 13px; padding: 4px 50px;">
+      🎁 Hari ini ada diskon <?= number_format(session()->get('diskon')) ?> per item!
+    </div>
+  <?php endif; ?>
+
+</div><!-- End Search Bar -->
+    
 </div><!-- End Search Bar -->
 
 <nav class="header-nav ms-auto">
   <ul class="d-flex align-items-center">
-
     <li class="nav-item d-block d-lg-none">
       <a class="nav-link nav-icon search-bar-toggle " href="#">
         <i class="bi bi-search"></i>
       </a>
     </li><!-- End Search Icon-->
-
-    <li class="nav-item dropdown">
 
       <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
         <i class="bi bi-bell"></i>

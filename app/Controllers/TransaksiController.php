@@ -63,5 +63,48 @@ class TransaksiController extends BaseController
         session()->setflashdata('success', 'Keranjang Berhasil Dihapus');
         return redirect()->to(base_url('keranjang'));
     }
+    public function checkout()
+{
+    $cart = \Config\Services::cart();
+    $db = \Config\Database::connect();
+    $builder = $db->table('transaksi');
+
+    $userId = session()->get('user_id'); // sesuaikan
+    $tanggal = date('Y-m-d');
+
+    // hitung total langsung dari cart (price sudah diskon)
+    $total = 0;
+    foreach ($cart->contents() as $item) {
+        $total += $item['price'] * $item['qty'];
+    }
+
+    // simpan transaksi (header)
+    $builder->insert([
+        'user_id' => $userId,
+        'total' => $total,
+        'tanggal' => $tanggal
+    ]);
+
+    $transaksiId = $db->insertID();
+
+    // simpan detail transaksi
+    $detailBuilder = $db->table('transaction_detail');
+    foreach ($cart->contents() as $item) {
+        $subtotal = $item['price'] * $item['qty'];
+
+        $detailBuilder->insert([
+            'transaksi_id' => $transaksiId,
+            'produk_id'    => $item['id'],
+            'qty'          => $item['qty'],
+            'harga'        => $item['price'], // sudah diskon
+            'subtotal'     => $subtotal
+        ]);
+    }
+
+    $cart->destroy();
+    return redirect()->to('/transaksi')->with('success', 'Transaksi berhasil disimpan.');
+}
+
+
 }
 
