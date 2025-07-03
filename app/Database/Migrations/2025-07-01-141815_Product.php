@@ -8,42 +8,44 @@ class Product extends Migration
 {
     public function up()
     {
-    if (! $this->db->tableExists('product')) {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
-                'auto_increment' => true,
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => TRUE,
+                'auto_increment' => TRUE
             ],
             'nama' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => FALSE,
             ],
             'harga' => [
                 'type' => 'DOUBLE',
+                'null' => FALSE,
             ],
             'jumlah' => [
                 'type' => 'INT',
                 'constraint' => 5,
+                'null' => FALSE,
             ],
             'foto' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'type' => 'VARCHAR',
+                'constraint' => 255,
             ],
             'created_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
+                'type' => 'datetime',
+                'null' => TRUE
             ],
             'updated_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
+                'type' => 'datetime',
+                'null' => TRUE
+            ]
         ]);
-        $this->forge->addKey('id', true);
+
+        $this->forge->addKey('id', TRUE);
         $this->forge->createTable('product');
     }
-}
 
     //--------------------------------------------------------------------
 

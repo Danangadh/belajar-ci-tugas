@@ -1,10 +1,10 @@
-<?= $this->extend('layout_clear') ?>
+ <?= $this->extend('layout_clear') ?>
 <?= $this->section('content') ?>
 <?php
 $username = [
     'name' => 'username',
     'id' => 'username',
-    'class' => 'form-control',
+    'class' => 'form-control'
 ];
 
 $password = [
@@ -20,8 +20,8 @@ $password = [
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                <img src="<?php echo base_url() ?>NiceAdmin/assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">PlasmaSheet</span>
+                 <img src="<?php echo base_url() ?>NiceAdmin/assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block">Toko</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -34,8 +34,19 @@ $password = [
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  
-                  <?= form_open('login', 'class = "row g-3 needs-validation"') ?>
+                  <?php
+if (session()->getFlashData('failed')) {
+?>
+    <div class="col-12 alert alert-danger" role="alert">
+        <hr>
+        <p class="mb-0">
+            <?= session()->getFlashData('failed') ?>
+        </p>
+    </div>
+<?php
+}
+?>
+                 <?= form_open('login', 'class = "row g-3 needs-validation"') ?>
 
 <div class="col-12">
     <label for="yourUsername" class="form-label">Username</label>

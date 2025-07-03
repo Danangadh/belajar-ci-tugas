@@ -36,6 +36,7 @@ class Filters extends BaseFilters
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
         'redirect'      => \App\Filters\RedirectFilter::class,
+        
     ];
 
     /**

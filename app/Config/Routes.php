@@ -8,12 +8,18 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 $routes->get('login', 'AuthController::login');
-$routes->post('/login', 'Auth::login', ['filter' => 'redirect']);
-$routes->match(['get', 'post'], 'login', 'AuthController::login');
-
+$routes->post('login', 'AuthController::login');
+$routes->get('logout', 'AuthController::logout');
 
 
 $routes->get('logout', 'AuthController::logout');
+$routes->group('produk', ['filters' => 'auth'], function ($routes) { 
+    $routes->get('', 'ProdukController::index');
+    $routes->post('', 'ProdukController::create');
+    $routes->post('edit/(:any)', 'ProdukController::edit/$1');
+    $routes->get('delete/(:any)', 'ProdukController::delete/$1');
+    $routes->get('download', 'ProdukController::download');
+});
 
 
 
