@@ -12,21 +12,29 @@
     <?php
     $no = 1;
     foreach ($product as $index => $produk) :
-        $path = "../public/img/" . $produk['foto'];
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $base64 = '';
+        $path = FCPATH . 'img/' . $produk['foto'];
 
+        if (!empty($produk['foto']) && file_exists($path)) {
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        }
     ?>
         <tr>
-            <td align="center"><?= $index + 1 ?></td>
-            <td><?= $produk['nama'] ?></td>
+            <td align="center"><?= $no++ ?></td>
+            <td><?= esc($produk['nama']) ?></td>
             <td align="right"><?= "Rp " . number_format($produk['harga'], 2, ",", ".") ?></td>
             <td align="center"><?= $produk['jumlah'] ?></td>
             <td align="center">
-                <img src="<?= $base64 ?>" width="50px">
+                <?php if ($base64): ?>
+                    <img src="<?= $base64 ?>" width="50px">
+                <?php else: ?>
+                    <span>Tidak ada gambar</span>
+                <?php endif; ?>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
-Downloaded on <?= date("Y-m-d H:i:s") ?>
+
+<p>Downloaded on <?= date("Y-m-d H:i:s") ?></p>
