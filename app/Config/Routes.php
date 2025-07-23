@@ -47,3 +47,6 @@ $routes->get('diskon/delete/(:num)', 'DiskonController::delete/$1');
 $routes->get('/produk', 'ProdukController::index');
 $routes->get('/keranjang', 'TransaksiController::index');
 $routes->get('/contact', 'ContactController::index');
+
+$routes->get('profile', 'Home::profile', ['filters' => 'auth']);
+$routes->resource('api', ['controller' => 'apiController']);
