@@ -28,21 +28,24 @@
 
     if (!empty($items)) :
       foreach ($items as $index => $item) :
-        $harga_asli = $item['price'];
         $diskon = isset($item['options']['diskon']) ? $item['options']['diskon'] : 0;
-        $harga_setelah_diskon = $harga_asli;
-        $harga_setelah_diskon -= $diskon;
-
+        $hargaAsli = $item['price'] + $diskon;
+        $hargaSetelahDiskon = $item['price'];
         $subtotal = $item['subtotal'];
         $grandTotal += $subtotal;
     ?>
         <tr>
           <td><?= $item['name'] ?></td>
-          <td><img src="<?= base_url() . "img/" . $item['options']['foto'] ?>" width="100px"></td>
           <td>
-            <?= number_to_currency($harga_asli, 'IDR') ?>
-            <?php if ($diskon > 0): ?>
-              <br><small class="text-success">- Rp <?= number_format($diskon) ?> diskon</small>
+            <?php if (!empty($item['options']['foto'])): ?>
+              <img src="<?= base_url('img/' . $item['options']['foto']) ?>" width="100px">
+            <?php endif; ?>
+          </td>
+          <td>
+            <del class="text-muted"><?= number_to_currency($hargaAsli, 'IDR') ?></del><br>
+            <?= number_to_currency($hargaSetelahDiskon, 'IDR') ?>
+            <?php if (!empty($diskon)): ?>
+              <br><small class="text-success">-Rp <?= number_format($diskon) ?> diskon</small>
             <?php endif; ?>
           </td>
           <td>
@@ -63,13 +66,15 @@
 </table>
 
 <div class="alert alert-info">
-  <?php echo "Total = " . number_to_currency($grandTotal, 'IDR') ?>
+  <?= "Total = " . number_to_currency($grandTotal, 'IDR') ?>
 </div>
 
 <button type="submit" class="btn btn-primary">Perbarui Keranjang</button>
-<a href="<?= base_url('checkout') ?>" class="btn btn-success">Checkout</a>
+<a class="btn btn-warning" href="<?= base_url('keranjang/clear') ?>">Kosongkan Keranjang</a>
 
-<a class="btn btn-warning" href="<?= base_url() ?>keranjang/clear">Kosongkan Keranjang</a>
+<?php if (!empty($items)) : ?>
+  <a class="btn btn-success" href="<?= base_url('checkout') ?>">Selesai Belanja</a>
+<?php endif; ?>
 
 <?php echo form_close() ?>
 <?= $this->endSection() ?>

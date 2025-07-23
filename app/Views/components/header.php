@@ -17,12 +17,14 @@
     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
   </form>
 
-  <!-- Diskon Info -->
+  <div class="d-flex align-items-center">
   <?php if (session()->get('diskon')): ?>
-    <div class="alert alert-success mb-0 py-1 px-3 rounded-3 d-inline-block" style="font-size: 13px; padding: 4px 50px;">
-      🎁 Hari ini ada diskon <?= number_format(session()->get('diskon')) ?> per item!
+    <div class="alert alert-success mb-0 py-1 px-3 rounded-3 me-2" style="font-size: 14px;">
+      🎁 Diskon Hari Ini: Rp <?= number_format(session()->get('diskon')) ?> per item!
     </div>
   <?php endif; ?>
+</div>
+
 
 </div><!-- End Search Bar -->
     
